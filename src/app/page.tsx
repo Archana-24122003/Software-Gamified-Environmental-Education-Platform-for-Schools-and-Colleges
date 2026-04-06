@@ -45,9 +45,9 @@ export default function Page() {
         <p className="mt-3 text-xs text-[#8d7f73]">{progress}%</p>
 
         <div className="mt-5 flex justify-center gap-3 text-sm font-medium text-[#7b6e63]">
-          <span className="animate-bounce">Leaf</span>
-          <span className="animate-bounce [animation-delay:120ms]">Water</span>
-          <span className="animate-bounce [animation-delay:240ms]">Planet</span>
+          <span className="animate-bounce">🧭</span>
+          <span className="animate-bounce [animation-delay:120ms]">🚀</span>
+          <span className="animate-bounce [animation-delay:240ms]">✏️</span>
         </div>
       </div>
     </main>
