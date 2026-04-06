@@ -2,11 +2,19 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import AuthSplitLayout from "@/components/AuthSplitLayout";
 import { resetPassword } from "@/lib/auth";
 
 export default function ForgotPasswordPage() {
+  return (
+    <Suspense fallback={null}>
+      <ForgotPasswordContent />
+    </Suspense>
+  );
+}
+
+function ForgotPasswordContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const role = searchParams.get("role") === "teacher" ? "teacher" : "student";

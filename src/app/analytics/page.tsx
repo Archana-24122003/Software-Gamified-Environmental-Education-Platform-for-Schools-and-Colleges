@@ -3,6 +3,7 @@
 import Footer from "@/components/Footer";
 import { getActivityHistory, getActivitySummary, formatActivityLabel } from "@/lib/activityHistory";
 import { getProgress } from "@/lib/progress";
+import { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -16,6 +17,12 @@ import {
 } from "recharts";
 
 export default function AnalyticsPage() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const progress = getProgress();
   const activityHistory = getActivityHistory();
   const summary = getActivitySummary();
@@ -62,22 +69,26 @@ export default function AnalyticsPage() {
               </p>
 
               <div className="mt-6 h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={timelineData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#ead9c8" />
-                    <XAxis dataKey="label" stroke="#8d7f73" />
-                    <YAxis stroke="#8d7f73" />
-                    <Tooltip
-                      contentStyle={{
-                        borderRadius: "18px",
-                        border: "1px solid #ead9c8",
-                        background: "#fffaf4",
-                        color: "#2d241f",
-                      }}
-                    />
-                    <Line type="monotone" dataKey="xp" stroke="#d7863d" strokeWidth={3} />
-                  </LineChart>
-                </ResponsiveContainer>
+                {isMounted ? (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={timelineData}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#ead9c8" />
+                      <XAxis dataKey="label" stroke="#8d7f73" />
+                      <YAxis stroke="#8d7f73" />
+                      <Tooltip
+                        contentStyle={{
+                          borderRadius: "18px",
+                          border: "1px solid #ead9c8",
+                          background: "#fffaf4",
+                          color: "#2d241f",
+                        }}
+                      />
+                      <Line type="monotone" dataKey="xp" stroke="#d7863d" strokeWidth={3} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <ChartPlaceholder />
+                )}
               </div>
             </div>
 
@@ -88,22 +99,26 @@ export default function AnalyticsPage() {
               </p>
 
               <div className="mt-6 h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={subjectData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#ead9c8" />
-                    <XAxis dataKey="subject" stroke="#8d7f73" />
-                    <YAxis stroke="#8d7f73" />
-                    <Tooltip
-                      contentStyle={{
-                        borderRadius: "18px",
-                        border: "1px solid #ead9c8",
-                        background: "#fffaf4",
-                        color: "#2d241f",
-                      }}
-                    />
-                    <Bar dataKey="plays" fill="#91c58d" radius={[8, 8, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
+                {isMounted ? (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={subjectData}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#ead9c8" />
+                      <XAxis dataKey="subject" stroke="#8d7f73" />
+                      <YAxis stroke="#8d7f73" />
+                      <Tooltip
+                        contentStyle={{
+                          borderRadius: "18px",
+                          border: "1px solid #ead9c8",
+                          background: "#fffaf4",
+                          color: "#2d241f",
+                        }}
+                      />
+                      <Bar dataKey="plays" fill="#91c58d" radius={[8, 8, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <ChartPlaceholder />
+                )}
               </div>
             </div>
           </section>
@@ -216,4 +231,8 @@ function InfoRow({ label, value }: { label: string; value: string }) {
       <span className="text-sm font-semibold text-[#2d241f]">{value}</span>
     </div>
   );
+}
+
+function ChartPlaceholder() {
+  return <div className="h-full w-full animate-pulse rounded-[1.5rem] bg-[#f6ede2]" />;
 }

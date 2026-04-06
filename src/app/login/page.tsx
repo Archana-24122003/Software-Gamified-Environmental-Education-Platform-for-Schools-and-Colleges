@@ -2,11 +2,19 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import AuthSplitLayout from "@/components/AuthSplitLayout";
 import { loginWithEmail } from "@/lib/auth";
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginContent />
+    </Suspense>
+  );
+}
+
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const role = searchParams.get("role") === "teacher" ? "teacher" : "student";
