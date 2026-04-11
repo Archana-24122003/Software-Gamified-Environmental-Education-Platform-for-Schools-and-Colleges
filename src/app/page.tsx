@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Page() {
   const router = useRouter();
@@ -28,8 +29,8 @@ export default function Page() {
   return (
     <main className="grid min-h-screen place-items-center px-4">
       <div className="soft-card w-full max-w-md rounded-[2rem] p-8 text-center">
-        <div className="mx-auto grid h-16 w-16 place-items-center rounded-[1.4rem] border border-[#f0cda9] bg-[#fff3e2] text-sm font-semibold uppercase tracking-[0.18em] text-[#8a4f21] shadow-sm">
-          Eco
+        <div className="relative mx-auto h-16 w-16 overflow-hidden rounded-[1.4rem] border border-[#f0cda9] bg-[#fff3e2] shadow-sm">
+          <Image src="/learnbee-logo.svg" alt="LearnBee logo" fill className="object-cover p-1.5" />
         </div>
 
         <h1 className="mt-4 text-2xl font-semibold text-[#2d241f]">LearnBee</h1>
@@ -44,7 +45,7 @@ export default function Page() {
 
         <p className="mt-3 text-xs text-[#8d7f73]">{progress}%</p>
 
-        <div className="mt-5 flex justify-center gap-3 text-sm font-medium text-[#7b6e63]">
+        <div className="mt-5 flex justify-center gap-5 text-xl font-medium text-[#7b6e63]">
           <span className="animate-bounce">🧭</span>
           <span className="animate-bounce [animation-delay:120ms]">🚀</span>
           <span className="animate-bounce [animation-delay:240ms]">✏️</span>

@@ -1,6 +1,7 @@
 "use client";
 
-import { Leaf, Sparkles } from "lucide-react";
+import { PencilRuler } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -60,19 +61,19 @@ export default function Navbar() {
     <div className="sticky top-0 z-40 border-b border-[#3f2c1d]/8 bg-[linear-gradient(180deg,rgba(255,250,244,0.96),rgba(249,244,235,0.82))] backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <Link href="/home" className="group flex items-center gap-3">
-          <div className="relative grid h-11 w-11 place-items-center rounded-[1.1rem] border border-[#d9bca2]/40 bg-[linear-gradient(180deg,#fff8ed_0%,#ffeccc_100%)] text-[#8a4f21] shadow-[0_10px_22px_rgba(122,88,55,0.09)]">
-            <Leaf className="h-5 w-5" />
-            <Sparkles className="absolute -right-1 -top-1 h-3.5 w-3.5 text-[#d7863d] opacity-75" />
+          <div className="relative h-11 w-11 overflow-hidden rounded-[1.1rem] border border-[#d9bca2]/50 bg-[linear-gradient(180deg,#fff9ee_0%,#ffeccc_100%)] shadow-[0_10px_22px_rgba(122,88,55,0.12)]">
+            <Image src="/learnbee-logo.svg" alt="LearnBee bee logo" fill className="object-cover p-1" />
           </div>
           <div className="leading-tight">
             <div className="font-semibold tracking-tight text-[#2d241f]">LearnBee</div>
-            <div className="text-xs text-[#7b6e63]">Learn • Play • Grow</div>
+            <div className="text-xs text-[#7b6e63]">Learn | Play | Grow</div>
           </div>
         </Link>
 
         <div className="hidden items-center gap-1 md:flex">
           <NavLink href="/home" label="Home" />
           <NavLink href={dashboardHref} label="Dashboard" />
+          {isTeacher && <NavLink href="/create-quiz" label="Create Quiz" />}
 
           {!isTeacher && (
             <div className="relative" data-explore>
@@ -81,11 +82,19 @@ export default function Navbar() {
                 onClick={() => setOpenExplore((value) => !value)}
                 className="rounded-full px-4 py-2 text-sm font-medium text-[#6f6258] transition hover:bg-white/60 hover:text-[#2d241f]"
               >
-                Explore ▾
+                Explore 
               </button>
 
               {openExplore && (
                 <div className="absolute left-0 mt-2 w-52 rounded-[1.5rem] border border-[#3f2c1d]/10 bg-[#fffaf4]/95 p-2 shadow-[0_18px_45px_rgba(122,88,55,0.12)] backdrop-blur">
+                  <Link
+                    href="/student-quizzes"
+                    className="mb-1 flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-[#5f5144] hover:bg-[#f7f1e8]"
+                    onClick={() => setOpenExplore(false)}
+                  >
+                    <PencilRuler className="h-4 w-4 text-[#d7863d]" />
+                    Quiz
+                  </Link>
                   <Link
                     href="/student-course-selection"
                     className="block rounded-xl px-3 py-2 text-sm text-[#5f5144] hover:bg-[#f7f1e8]"
